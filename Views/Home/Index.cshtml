@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+@model HomeViewModel
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>En Ucuz Ürün</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        .logo {
+            height: 55px;
+        }
+
+        #logo-parent, #search input {
+            text-align: center;
+        }
+
+        header {
+            background-color: black;
+            padding: 15px 0 15px 0;
+        }
+
+        h4 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo-parent">
+            @foreach (var logo in Model.LogoUrls)
+            {
+                <img class="logo" src="@logo" />
+            }
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+            <hr />
+            <h4>Marketler zincirinde aramak istediğiniz ürünü en ucuzdan pahalıya doğru sıralayan bir sistemdir</h4>
+            <div class="row">
+                <div class=" offset-md-4 offset-sm-1 col-md-6">
+                    <div id="search">
+
+                        <form asp-controller="Home" asp-action="Index" method="post">
+                            <div class="form-group">
+                                <input style="text-align:center;width:400px" type="text" name="product" placeholder="Örn: yumurta" class="form-control" />
+                            </div>
+                            <button type="submit" style="width:400px;" class="btn btn-success">Ara</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md">
+                    @if (Model.Products != null)
+                    {
+                        <span>@Model.Products.Count sonuç bulundu</span>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Market</th>
+                                    <th>Ürün</th>
+                                    <th>Fiyat</th>
+                                    <th>Ürün Resmi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.Products.OrderBy(p => p.ProductPrice))
+                                {
+                                    <tr>
+                                        <td>
+                                            <div style="width:min-content;@(product.MarketName=="Mopaş" ? "background-color:black;":"")">
+                                                <img style="height:40px" src="@product.MarketLogoUrl" />
+                                            </div>
+                                        </td>
+                                        <td><span>@product.ProductName</span></td>
+                                        <td><span>@product.ProductPrice</span></td>
+                                        <td><img style="height:100px" src="@(product.ProductImageUrl.StartsWith("//") || product.ProductImageUrl.StartsWith("http") ?  product.ProductImageUrl : product.MarketBaseUrl + product.ProductImageUrl )" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
