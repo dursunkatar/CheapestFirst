@@ -3,8 +3,6 @@ using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EnUcuzUrun
 {
@@ -22,6 +20,7 @@ namespace EnUcuzUrun
             _cssSelectors = cssSelectors;
             _marketBaseUrl = baseUrl;
         }
+
         public List<Product> Parse(string html)
         {
             var doc = new HtmlDocument();
@@ -46,7 +45,7 @@ namespace EnUcuzUrun
                     ProductImageUrl = GetProducImageUrlFromNode(imageNodes[i]),
                     ProductName = GetProductNameFromNode(nameNodes[i]),
                     ProductPrice = GetProductPriceFromNode(priceNodes[i])
-                }); ;
+                });
             }
             return products;
         }
@@ -85,7 +84,6 @@ namespace EnUcuzUrun
                                   ? Convert.ToDecimal(node.InnerText.Replace("TL", "").Replace("₺", "").Trim())
                                   : Convert.ToDecimal(node.Attributes[_cssSelectors["product-prices"].TagAttribute].Value.Replace("TL", "").Trim());
 
-
         private void clearHtml(ref string htmlContext, string startPattern, string endPattern)
         {
             int TAG_LENGTH = endPattern.Length;
@@ -101,6 +99,5 @@ namespace EnUcuzUrun
                 htmlContext = htmlContext.Replace(tmpHtml, string.Empty);
             } while (true);
         }
-
     }
 }
