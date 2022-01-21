@@ -14,8 +14,9 @@ namespace EnUcuzUrun.Controllers
         {
             var model = new HomeViewModel()
             {
-                LogoUrls = Utilities.MarketLogoUrls,
+                LogoUrls = Utilities.MarketLogoUrls
             };
+
             return View(model);
         }
 
