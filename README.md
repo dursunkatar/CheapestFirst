@@ -16,5 +16,10 @@ CheapestFirst is a product price comparison tool that helps users find the cheap
 1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/dursunkatar/CheapestFirst.git
+   ```
+2. Run the application in your development environment.
+3. Input the product you are looking for, and the tool will display a list of prices from different retailers.
+4. The results will be ordered from the cheapest to the most expensive.
 
+## ScreenShot
 ![istanbul-nobetci-eczane](https://github.com/dursunkatar/UcuzUrunum/blob/main/ucuz-urun.jpeg)
